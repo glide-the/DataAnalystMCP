@@ -1,5 +1,4 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/shemhamforash23-lightrag-mcp-badge.png)](https://mseep.ai/app/shemhamforash23-lightrag-mcp)
-
+、
 # Ragflow Retrieval MCP Server
 
 MCP server for integrating Ragflow retrieval with AI tools. Provides a unified interface for interacting with the Ragflow `/api/v1/retrieval` endpoint through the MCP protocol.
