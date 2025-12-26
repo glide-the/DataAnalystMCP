@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from typing import Any, AsyncGenerator, AsyncIterator, Dict, List, Optional, cast
+from pydantic import Field
 
 from data_analyst_mcp import config
 from data_analyst_mcp.server import aggregate_vanna_events
@@ -106,10 +107,17 @@ async def vanna_chat_stream(
 @mcp.tool()
 async def vanna_chat_once(
     ctx: Context,
-    message: str,
-    conversation_id: Optional[str] = None,
-    agent_id: Optional[str] = None,
-    acceptable_responses: Optional[List[str]] = None,
+    message: str = Field(description="User message to send to Vanna"),
+    user_email: Optional[str] = Field(default=None, description="User email"),
+    conversation_id: Optional[str] = Field(
+        default=None,
+        description="Existing conversation id to continue; if omitted a new conversation is started",
+    ),
+    agent_id: Optional[str] = Field(default=None, description="Optional Vanna agent id"),
+    acceptable_responses: Optional[List[str]] = Field(
+        default=None,
+        description="Filter response types: text/image/link/error/dataframe/plotly/sql",
+    ),
 ) -> Dict[str, Any]:
     """Return aggregated chat output for a single message."""
     events: List[Dict[str, Any]] = []
